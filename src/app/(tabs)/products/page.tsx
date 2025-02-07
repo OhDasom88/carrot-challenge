@@ -1,5 +1,5 @@
 import ListProduct from "@/components/list-product";
-import db from "../../../../lib/db";
+import db from "@/lib/db";
 
 async function getProducts() {
   const products = await db.product.findMany({
