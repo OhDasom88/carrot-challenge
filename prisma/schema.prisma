@@ -20,6 +20,7 @@ model User {
   updated_at DateTime @updatedAt
   tweets    Tweet[]  @relation("UserTweets")
   likes     Like[]   @relation("UserLikes")
+  products Product[]
 }
 
 model Tweet {
@@ -40,4 +41,16 @@ model Like {
   tweetId Int
   user User @relation(fields: [userId], references: [id], name: "UserLikes", onDelete: Cascade)
   tweet Tweet @relation(fields: [tweetId], references: [id], name: "TweetLikes", onDelete: Cascade)
+}
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  title       String
+  price       Float
+  photo       String
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
 }
