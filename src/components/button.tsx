@@ -2,10 +2,11 @@
 import { useFormStatus } from "react-dom";
 
 interface ButtonProps {
-    loading: boolean;
+    // loading: boolean;
     text: string;
   } 
-  export default function Button({ loading, text }: ButtonProps) {
+  // export default function Button({ loading, text }: ButtonProps) {
+  export default function Button({ text }: ButtonProps) {
     const {pending} = useFormStatus()
     return (
       <button

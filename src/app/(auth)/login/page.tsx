@@ -46,7 +46,8 @@ export default function LogIn() {
             </svg>
             }
             />
-            <Button loading={false} text="Log in" />
+            {/* <Button loading={false} text="Log in" /> */}
+            <Button text="Log in" />
             <Link href="/create-account">Don't have an account? Create one</Link>
         </form>
         {

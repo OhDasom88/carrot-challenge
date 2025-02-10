@@ -52,7 +52,8 @@ export default function CreateAccount() {
           </svg>
           }
           />
-          <Button loading={false} text="Create Account" />
+          {/* <Button loading={false} text="Create Account" /> */}
+          <Button text="Create Account" />
           <Link href="/login">Already have an account? Log in</Link>
       </form>
       {

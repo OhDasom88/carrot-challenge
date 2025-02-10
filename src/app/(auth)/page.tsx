@@ -4,7 +4,7 @@ import Link from "next/link";
 import TweetList from "@/components/tweet-list";
 import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
-
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 async function getInitialTweets() {
   const tweets = await db.tweet.findMany({
@@ -45,8 +45,14 @@ export default async function Home() {
       {
         session.id ? (
           <div className="p-5 flex flex-col gap-5">
+           <Link
+              href="/tweets/add"
+              className="bg-orange-500 flex items-center justify-center rounded-full size-16 fixed top-8 right-8 text-white transition-colors hover:bg-orange-400"
+            >
+              <PlusIcon className="size-10" />
+            </Link>
            <TweetList initialTweets={initialTweets} />
-        </div>
+          </div>
         ) : (
           <div className="my-auto flex flex-col items-center gap-2 *:font-medium">
             <span className="text-9xl">🥕</span>
