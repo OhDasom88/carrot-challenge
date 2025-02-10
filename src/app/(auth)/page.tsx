@@ -1,17 +1,52 @@
 import { getSession } from "@/lib/session";
 import Link from "next/link";
 
+import TweetList from "@/components/tweet-list";
+import db from "@/lib/db";
+import { Prisma } from "@prisma/client";
+
+
+async function getInitialTweets() {
+  const tweets = await db.tweet.findMany({
+    select: {
+      tweet: true,
+      user: {
+        select: {
+          username: true,
+        },
+      },
+      likes: {
+        select: {
+          id: true,
+        },
+      },
+      created_at: true,
+      id: true,
+    },
+    take: 1,
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+  return tweets;
+}
+
+export type InitialTweets = Prisma.PromiseReturnType<
+  typeof getInitialTweets
+>;
+
 export default async function Home() {
   const session = await getSession();
-  console.log(session);
-  console.log(session.id);
+  // console.log(session);
+  // console.log(session.id);
+  const initialTweets = await getInitialTweets();
   return (
     <div className="flex flex-col items-center justify-between min-h-screen p-6">
       {
         session.id ? (
-          <div>
-            <h1>로그인 성공</h1>
-          </div>
+          <div className="p-5 flex flex-col gap-5">
+           <TweetList initialTweets={initialTweets} />
+        </div>
         ) : (
           <div className="my-auto flex flex-col items-center gap-2 *:font-medium">
             <span className="text-9xl">🥕</span>

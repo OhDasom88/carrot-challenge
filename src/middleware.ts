@@ -34,8 +34,8 @@ export async function middleware(request: NextRequest) {
       }
     }
     if (session.id) {
-      console.log("Session ID exists, redirecting to home");
       if (exists) {
+        console.log("Session ID exists, redirecting to home");
         // login or create-account page
         return NextResponse.redirect(new URL("/", request.url));
       }else{
