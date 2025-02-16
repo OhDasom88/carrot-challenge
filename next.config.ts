@@ -1,5 +1,3 @@
-import type { NextConfig } from "next";
-
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -8,6 +6,10 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizeFonts: false,
+  },
 };
+
 
 export default nextConfig;

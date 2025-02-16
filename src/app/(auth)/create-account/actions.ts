@@ -1,9 +1,9 @@
 "use server"
-import db from "../../../../lib/db";
+import db from "@/lib/db";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
-import { getSession } from "../../../../lib/session";
+import { getSession } from "@/lib/session";
 
 const createAccountSchema = z.object({
     email: z.string().trim()
@@ -30,13 +30,13 @@ const createAccountSchema = z.object({
     }
 });
 
-export async function handleSubmit(prevState: any, formData: FormData) {
+export async function handleSubmit(_prevState: any, formData: FormData) {
 
     // Access the inner type to get the shape
     const schemaKeys = Object.keys((createAccountSchema._def.schema as z.ZodObject<any>).shape);
 
     const data = Object.fromEntries(
-        Array.from(formData.entries()).filter(([key, value]) => schemaKeys.includes(key))
+        Array.from(formData.entries()).filter(([key, _value]) => schemaKeys.includes(key))
     );
     const result = await createAccountSchema.safeParseAsync(data);
     if (!result.success) {
