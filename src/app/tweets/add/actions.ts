@@ -4,13 +4,17 @@ import db from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 const tweetSchema = z.object({
-  tweet: z.string({
-    required_error: "Tweet is required",
+  title: z.string({
+    required_error: "Title is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
   }),
 });
 export async function uploadTweet(_: any, formData: FormData) {
   const data = {
-    tweet: formData.get("tweet"),
+    title: formData.get("title"),
+    description: formData.get("description"),
   };
   const result = tweetSchema.safeParse(data);
   if (!result.success) {
@@ -20,7 +24,8 @@ export async function uploadTweet(_: any, formData: FormData) {
     if (session.id) {
       const tweet = await db.tweet.create({
         data: {
-          tweet: result.data.tweet,
+          title: result.data.title,
+          description: result.data.description,
           user: {
             connect: {
               id: session.id,
@@ -31,12 +36,12 @@ export async function uploadTweet(_: any, formData: FormData) {
           id: true,
         },
       });
-      const like = await db.like.create({
-        data: {
-          userId: session.id,
-          tweetId: tweet.id,
-        },
-      });
+      // const like = await db.like.create({
+      //   data: {
+      //     userId: session.id,
+      //     tweetId: tweet.id,
+      //   },
+      // });
       // redirect(`/tweets/${tweet.id}`);
       redirect("/");
       //redirect("/products")

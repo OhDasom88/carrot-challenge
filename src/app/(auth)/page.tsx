@@ -9,7 +9,11 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 async function getInitialTweets() {
   const tweets = await db.tweet.findMany({
     select: {
-      tweet: true,
+      id: true,
+      title: true,
+      description: true,
+      views: true,
+      created_at: true,
       user: {
         select: {
           username: true,
@@ -17,11 +21,17 @@ async function getInitialTweets() {
       },
       likes: {
         select: {
+          userId: true,
+          tweetId: true,
+        },
+      },
+      comments: {
+        select: {
+          payload: true,
+          created_at: true,
           id: true,
         },
       },
-      created_at: true,
-      id: true,
     },
     take: 1,
     orderBy: {
@@ -40,6 +50,7 @@ export default async function Home() {
   // console.log(session);
   // console.log(session.id);
   const initialTweets = await getInitialTweets();
+  console.log(initialTweets);
   return (
     <div className="flex flex-col items-center justify-between min-h-screen p-6">
       {

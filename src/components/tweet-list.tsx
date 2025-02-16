@@ -43,9 +43,11 @@ export default function TweetList({ initialTweets }: TweetListProps) {
     return () => observer.disconnect();
   }, [page]);
   return (
-    <div className="p-5 flex flex-col gap-5">
+    <div className="p-5 flex flex-col">
       {tweets.map((tweet) => (
-        <ListTweet key={tweet.id} {...tweet} />
+        <ListTweet 
+        key={tweet.id} 
+        {...tweet}  />
       ))}
       {!isLastPage ? (
         <span

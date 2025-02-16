@@ -14,11 +14,18 @@ export default function AddTweet() {
     <div>
        <form action={action} className="p-5 flex flex-col gap-5">
         <Input
-          name="tweet"
+          name="title"
           required
-          placeholder="트윗"
+          placeholder="제목"
           type="text"
-          errors={state?.fieldErrors.tweet}
+          errors={state?.fieldErrors.title}
+        />
+        <Input
+          name="description"
+          required
+          placeholder="내용"
+          type="text"
+          errors={state?.fieldErrors.description}
         />
         <Button text="작성 완료" />
       </form>
