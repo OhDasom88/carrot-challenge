@@ -80,7 +80,7 @@ function getCachedLikeStatus(tweetId: number, userId: number) {
 export default async function TweetDetail({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params
   const tweetId = Number(id);

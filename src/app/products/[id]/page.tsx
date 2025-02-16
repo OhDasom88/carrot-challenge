@@ -35,7 +35,7 @@ async function getProduct(id: number) {
   export default async function ProductDetail({
     params,
   }: {
-    params: { id: string };
+    params: Promise<{ id: string }>;
   }) {
     const { id } = await params
     const id_number = Number(id);
